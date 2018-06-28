@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	// TODO Should set some AWS settings by flag
+	// FIXME Need to set flexible amount of option
 	if len(os.Args) != 3 {
 		panic("must set two key=value sets")
 	}
@@ -59,6 +61,7 @@ func main() {
 
 	filterd := []autoscaling.Group{}
 	for _, asg := range results {
+		// FIXME Need async output
 		var matched int
 		for _, tag := range asg.Tags {
 			if aws.StringValue(tag.Key) == tag1[0] {
