@@ -79,7 +79,7 @@ func main() {
 			filterd = append(filterd, asg)
 		}
 	}
-	fmt.Println("autoscaling-group-name | desired-capacity | min-size | max-size | Launch-configuration-name")
+	// fmt.Println("autoscaling-group-name | desired-capacity | min-size | max-size | Launch-configuration-name")
 	// autoscaling group name
 	// desired capacity
 	// min
