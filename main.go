@@ -1,8 +1,8 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -10,15 +10,22 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/autoscaling"
 )
 
+var (
+	region string
+)
+
 func main() {
+	flag.StringVar(&region, "region", "", "AWS region")
+	flag.StringVar(&region, "r", "", "AWS region")
+	flag.Parse()
 	// TODO Should set some AWS settings by flag
 	// FIXME Need to set flexible amount of option
-	if len(os.Args) != 3 {
-		panic("must set two key=value sets")
-	}
 	cfg, err := external.LoadDefaultAWSConfig()
 	if err != nil {
 		panic(err)
+	}
+	if len(region) != 0 {
+		cfg.Region = region
 	}
 
 	svc := autoscaling.New(cfg)
@@ -30,8 +37,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	tag1 := strings.Split(os.Args[1], "=")
-	tag2 := strings.Split(os.Args[2], "=")
+	args := flag.Args()
+	tag1 := strings.Split(args[0], "=")
+	tag2 := strings.Split(args[1], "=")
 	results := []autoscaling.Group{}
 	results = append(results, result.AutoScalingGroups...)
 
