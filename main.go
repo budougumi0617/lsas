@@ -15,6 +15,10 @@ var (
 	printHeaderFlag bool
 )
 
+type tag struct {
+	key, value string
+}
+
 func main() {
 	flag.StringVar(&regionFlag, "region", "", "AWS region")
 	flag.StringVar(&regionFlag, "r", "", "AWS region")
@@ -39,11 +43,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	args := flag.Args()
 
-	// tagsを回す
-	tag1 := strings.Split(args[0], "=")
-	tag2 := strings.Split(args[1], "=")
+	var tags []tag
+	for _, arg := range flag.Args() {
+		if strings.Contains(arg, "=") {
+			t := strings.Split(arg, "=")
+			tags = append(tags, tag{key: t[0], value: t[1]})
+		}
+	}
 	results := []autoscaling.Group{}
 	results = append(results, result.AutoScalingGroups...)
 
@@ -75,19 +82,15 @@ func main() {
 	for _, asg := range results {
 		// FIXME Need async output
 		var matched int
-		for _, tag := range asg.Tags {
-			if aws.StringValue(tag.Key) == tag1[0] {
-				// fmt.Printf("asg.Tags = %#+v\n", asg.Tags)
-				// fmt.Printf("%s = %+v\n", tag1[0], aws.StringValue(tag.Value))
-				if aws.StringValue(tag.Value) == tag1[1] {
+		for _, astag := range asg.Tags {
+			for _, t := range tags {
+				if aws.StringValue(astag.Key) == t.key && aws.StringValue(astag.Value) == t.value {
+					// fmt.Printf("%s = %+v\n", tag2[0], aws.StringValue(tag.Value))
 					matched++
 				}
-			} else if aws.StringValue(tag.Key) == tag2[0] && aws.StringValue(tag.Value) == tag2[1] {
-				// fmt.Printf("%s = %+v\n", tag2[0], aws.StringValue(tag.Value))
-				matched++
 			}
 		}
-		if matched == len(args) {
+		if matched == len(tags) {
 			filterd = append(filterd, asg)
 		}
 	}
