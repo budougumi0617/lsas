@@ -1,0 +1,12 @@
+{
+	"ArtifactsDest": "dist",
+	"Tasks": [
+		"clean-destination",
+		"xc",
+		"archive-zip",
+		"rmbin"
+	],
+	"Arch": "386 amd64",
+	"Os": "linux darwin windows",
+	"ConfigVersion": "0.9"
+}
