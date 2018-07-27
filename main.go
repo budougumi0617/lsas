@@ -11,21 +11,23 @@ import (
 )
 
 var (
-	region string
+	regionFlag      string
+	printHeaderFlag bool
 )
 
 func main() {
-	flag.StringVar(&region, "region", "", "AWS region")
-	flag.StringVar(&region, "r", "", "AWS region")
+	flag.StringVar(&regionFlag, "region", "", "AWS region")
+	flag.StringVar(&regionFlag, "r", "", "AWS region")
+	flag.BoolVar(&printHeaderFlag, "print", false, "print result header")
+	flag.BoolVar(&printHeaderFlag, "p", false, "print result header")
 	flag.Parse()
-	// TODO Should set some AWS settings by flag
 	// FIXME Need to set flexible amount of option
 	cfg, err := external.LoadDefaultAWSConfig()
 	if err != nil {
 		panic(err)
 	}
-	if len(region) != 0 {
-		cfg.Region = region
+	if len(regionFlag) != 0 {
+		cfg.Region = regionFlag
 	}
 
 	svc := autoscaling.New(cfg)
@@ -38,6 +40,8 @@ func main() {
 		panic(err)
 	}
 	args := flag.Args()
+
+	// tagsを回す
 	tag1 := strings.Split(args[0], "=")
 	tag2 := strings.Split(args[1], "=")
 	results := []autoscaling.Group{}
@@ -83,11 +87,13 @@ func main() {
 				matched++
 			}
 		}
-		if matched == 2 {
+		if matched == len(args) {
 			filterd = append(filterd, asg)
 		}
 	}
-	// fmt.Println("autoscaling-group-name | desired-capacity | min-size | max-size | Launch-configuration-name")
+	if printHeaderFlag {
+		fmt.Println("autoscaling-group-name | desired-capacity | min-size | max-size | Launch-configuration-name")
+	}
 	// autoscaling group name
 	// desired capacity
 	// min
