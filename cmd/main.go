@@ -8,16 +8,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/autoscaling"
+	"github.com/budougumi0617/lsas"
 )
 
 var (
 	regionFlag      string
 	printHeaderFlag bool
 )
-
-type tag struct {
-	key, value string
-}
 
 func main() {
 	flag.StringVar(&regionFlag, "region", "", "AWS region")
@@ -44,11 +41,11 @@ func main() {
 		panic(err)
 	}
 
-	var tags []tag
+	var tags []lsas.Tag
 	for _, arg := range flag.Args() {
 		if strings.Contains(arg, "=") {
 			t := strings.Split(arg, "=")
-			tags = append(tags, tag{key: t[0], value: t[1]})
+			tags = append(tags, lsas.Tag{Key: t[0], Value: t[1]})
 		}
 	}
 	results := []autoscaling.Group{}
@@ -84,7 +81,7 @@ func main() {
 		var matched int
 		for _, astag := range asg.Tags {
 			for _, t := range tags {
-				if aws.StringValue(astag.Key) == t.key && aws.StringValue(astag.Value) == t.value {
+				if aws.StringValue(astag.Key) == t.Key && aws.StringValue(astag.Value) == t.Value {
 					// fmt.Printf("%s = %+v\n", tag2[0], aws.StringValue(tag.Value))
 					matched++
 				}
