@@ -13,3 +13,6 @@
 
 vendor/
 dist/
+
+# binary
+lsas
