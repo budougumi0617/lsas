@@ -42,4 +42,5 @@ dist: dep pre-dist
 
 .PHONY: releases
 releases: dist
+	git push origin --tags
 	ghr ${VERSION} dist/snapshot
