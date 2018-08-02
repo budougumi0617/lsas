@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/autoscaling"
 	"github.com/budougumi0617/lsas"
 )
@@ -22,13 +21,10 @@ func main() {
 	flag.BoolVar(&printHeaderFlag, "print", false, "print result header")
 	flag.BoolVar(&printHeaderFlag, "p", false, "print result header")
 	flag.Parse()
-	// FIXME Need to set flexible amount of option
-	cfg, err := external.LoadDefaultAWSConfig()
+
+	cfg, err := lsas.LoadConfig(regionFlag)
 	if err != nil {
 		panic(err)
-	}
-	if len(regionFlag) != 0 {
-		cfg.Region = regionFlag
 	}
 
 	svc := autoscaling.New(cfg)
