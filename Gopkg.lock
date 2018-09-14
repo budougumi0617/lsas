@@ -2,6 +2,7 @@
 
 
 [[projects]]
+  digest = "1:f9549151cab2feb040e097ddc69e96c4e43eb9079b74523a1ebd37f6bd876492"
   name = "github.com/aws/aws-sdk-go-v2"
   packages = [
     "aws",
@@ -22,25 +23,34 @@
     "private/protocol/rest",
     "private/protocol/xml/xmlutil",
     "service/autoscaling",
-    "service/sts"
+    "service/sts",
   ]
+  pruneopts = "UT"
   revision = "ff1a530c31507c97cf5edbee226e604ca08661cc"
   version = "v2.0.0-preview.4"
 
 [[projects]]
+  digest = "1:fb46255681497314debedde38b64be32a75bae50bad107586c22f1662bf2d352"
   name = "github.com/go-ini/ini"
   packages = ["."]
+  pruneopts = "UT"
   revision = "06f5f3d67269ccec1fe5fe4134ba6e982984f7f5"
   version = "v1.37.0"
 
 [[projects]]
+  digest = "1:e22af8c7518e1eab6f2eab2b7d7558927f816262586cd6ed9f349c97a6c285c4"
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
+  pruneopts = "UT"
   revision = "0b12d6b5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f394277bc95461c8977472f8ad3ea7d6167aa92510a9bcc1b5f97034bb7cbccc"
+  input-imports = [
+    "github.com/aws/aws-sdk-go-v2/aws",
+    "github.com/aws/aws-sdk-go-v2/aws/external",
+    "github.com/aws/aws-sdk-go-v2/service/autoscaling",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
