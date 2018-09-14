@@ -15,7 +15,8 @@ Now writing...
 Now writing...
 
 ## Requirement
-The lsas needs the AWS Access Key IDm and the AWS Secret Access Key to access the autoscaling group information.
+The lsas CLI needs the AWS Access Key ID, and the AWS Secret Access Key to access the autoscaling group information.
+If you are able to access AWS information by AWS CLI, the lsas CLI is able to access AWS information same as AWS CLI.
 
 - Configuring the AWS CLI
   - https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
