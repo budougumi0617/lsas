@@ -30,8 +30,8 @@ You can download binary from [release page](https://github.com/budougumi0617/lsa
 ### MacOS
 If you want to install on MacOS, you can use Homebrew.
 ```
-brew install budougumi0617/lsas
 brew tap budougumi0617/lsas
+brew install budougumi0617/lsas
 ```
 
 
