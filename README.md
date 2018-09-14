@@ -9,9 +9,10 @@ lsas
 List view of aws autoscaling group.
 
 ## Demo
+Now writing...
 
 ## VS.
-T.B.D.
+Now writing...
 
 ## Requirement
 The lsas needs the AWS Access Key IDm and the AWS Secret Access Key to access the autoscaling group information.
@@ -23,6 +24,15 @@ The lsas needs the AWS Access Key IDm and the AWS Secret Access Key to access th
 ## Usage
 
 ## Install
+You can download binary from [release page](https://github.com/budougumi0617/lsas/releases) and place it in $PATH directory.
+
+### MacOS
+If you want to install on MacOS, you can use Homebrew.
+```
+brew install budougumi0617/lsas
+brew tap budougumi0617/lsas
+```
+
 
 ## Contribution
 1. Fork ([https://github.com/budougumi0617/lsas/fork](https://github.com/budougumi0617/lsas/fork))
