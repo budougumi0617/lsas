@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"strings"
+	"text/tabwriter"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/autoscaling"
@@ -87,8 +89,9 @@ func main() {
 			filterd = append(filterd, asg)
 		}
 	}
+	w := tabwriter.NewWriter(os.Stdout, 0, 4, 4, ' ', 0)
 	if printHeaderFlag {
-		fmt.Println("autoscaling-group-name | desired-capacity | min-size | max-size | Launch-configuration-name")
+		w.Write([]byte(fmt.Sprintf("autoscaling-group-name\tdesired-capacity\tmin-size\tmax-size\tLaunch-configuration-name\n")))
 	}
 	// autoscaling group name
 	// desired capacity
@@ -96,10 +99,14 @@ func main() {
 	// max
 	// launch configuration名
 	for _, asg := range filterd {
-		fmt.Printf("%s    %d    %d    %d    %s\n",
+		w.Write([]byte(fmt.Sprintf("%s\t%d\t%d\t%d\t%s\n",
 			aws.StringValue(asg.AutoScalingGroupName),
 			aws.Int64Value(asg.DesiredCapacity),
 			aws.Int64Value(asg.MaxSize), aws.Int64Value(asg.MinSize),
-			aws.StringValue(asg.LaunchConfigurationName))
+			aws.StringValue(asg.LaunchConfigurationName))),
+		)
+	}
+	if err := w.Flush(); err != nil {
+		panic(err)
 	}
 }
