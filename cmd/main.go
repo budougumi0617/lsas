@@ -102,7 +102,8 @@ func main() {
 		w.Write([]byte(fmt.Sprintf("%s\t%d\t%d\t%d\t%s\n",
 			aws.StringValue(asg.AutoScalingGroupName),
 			aws.Int64Value(asg.DesiredCapacity),
-			aws.Int64Value(asg.MaxSize), aws.Int64Value(asg.MinSize),
+			aws.Int64Value(asg.MinSize),
+			aws.Int64Value(asg.MaxSize),
 			aws.StringValue(asg.LaunchConfigurationName))),
 		)
 	}
