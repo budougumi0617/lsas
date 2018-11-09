@@ -25,6 +25,18 @@ If you are able to access AWS information by AWS CLI, the lsas CLI is able to ac
 
 ## Usage
 
+```
+lsas -h
+Usage of lsas:
+  -p	print result header
+  -print
+    	print result header
+  -r string
+    	AWS region
+  -region string
+    	AWS region
+```
+
 ## Install
 You can download binary from [release page](https://github.com/budougumi0617/lsas/releases) and place it in $PATH directory.
 
