@@ -8,11 +8,12 @@ lsas
 ## Description
 List view of aws autoscaling group.
 
-## Demo
-Now writing...
+## Demo & VS.
+We use the AWS Console (web view) to display the information of the Auto Scaling Group (ASG). Also, we want to filter ASG search results using tags.
+However, it is bothersome to do that with the `aws` command.
+The `lsas` command displays ASG information similar to the AWS Console. The `lsas` command also has a filter function.
 
-## VS.
-Now writing...
+![aws command vs lsas](demo.gif)
 
 ## Requirement
 The lsas CLI needs the AWS Access Key ID, and the AWS Secret Access Key to access the autoscaling group information.
@@ -23,6 +24,18 @@ If you are able to access AWS information by AWS CLI, the lsas CLI is able to ac
 
 
 ## Usage
+
+```
+lsas -h
+Usage of lsas:
+  -p	print result header
+  -print
+    	print result header
+  -r string
+    	AWS region
+  -region string
+    	AWS region
+```
 
 ## Install
 You can download binary from [release page](https://github.com/budougumi0617/lsas/releases) and place it in $PATH directory.
