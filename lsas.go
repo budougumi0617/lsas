@@ -57,8 +57,7 @@ func Execute(region string, showHeader bool) error {
 	results := []autoscaling.Group{}
 	results = append(results, result.AutoScalingGroups...)
 
-	var nt *string
-	nt = result.NextToken
+	nt := result.NextToken
 
 	for {
 		if nt != nil {
