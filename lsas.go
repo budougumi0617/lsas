@@ -89,7 +89,7 @@ func Execute(region string, showHeader, ignoreCase bool) error {
 		var matched int
 		for _, astag := range asg.Tags {
 			for _, t := range serachTags {
-				if aws.StringValue(astag.Key) == t.Key && aws.StringValue(astag.Value) == t.Value {
+				if matchTag(astag, t, ignoreCase) {
 					// fmt.Printf("%s = %+v\n", tag2[0], aws.StringValue(tag.Value))
 					matched++
 				}
@@ -124,4 +124,18 @@ func Execute(region string, showHeader, ignoreCase bool) error {
 		return err
 	}
 	return nil
+}
+
+func matchTag(td autoscaling.TagDescription, t Tag, i bool) bool {
+	k := aws.StringValue(td.Key)
+	v := aws.StringValue(td.Value)
+	wk := t.Key
+	wv := t.Value
+	if i {
+		k = strings.ToLower(k)
+		v = strings.ToLower(v)
+		wk = strings.ToLower(wk)
+		wv = strings.ToLower(wv)
+	}
+	return k == wk && v == wv
 }
