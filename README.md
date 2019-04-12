@@ -32,6 +32,10 @@ Usage of lsas:
   -p	print result header
   -print
     	print result header
+  -i
+    	Perform case insensitive matching.  By default, grep is case sensitive.
+  --ignore-case
+    	Perform case insensitive matching.  By default, grep is case sensitive.
   -r string
     	AWS region
   -region string

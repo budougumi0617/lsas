@@ -31,7 +31,7 @@ func LoadConfig(region string) (aws.Config, error) {
 }
 
 // Execute is main logic.
-func Execute(region string, showHeader bool) error {
+func Execute(region string, showHeader, ignoreCase bool) error {
 	cfg, err := LoadConfig(region)
 	if err != nil {
 		return err
@@ -47,11 +47,11 @@ func Execute(region string, showHeader bool) error {
 		return err
 	}
 
-	var tags []Tag
+	var serachTags []Tag
 	for _, arg := range flag.Args() {
 		if strings.Contains(arg, "=") {
 			t := strings.Split(arg, "=")
-			tags = append(tags, Tag{Key: t[0], Value: t[1]})
+			serachTags = append(serachTags, Tag{Key: t[0], Value: t[1]})
 		}
 	}
 	results := []autoscaling.Group{}
@@ -88,14 +88,15 @@ func Execute(region string, showHeader bool) error {
 		// FIXME Need async output
 		var matched int
 		for _, astag := range asg.Tags {
-			for _, t := range tags {
+			for _, t := range serachTags {
 				if aws.StringValue(astag.Key) == t.Key && aws.StringValue(astag.Value) == t.Value {
 					// fmt.Printf("%s = %+v\n", tag2[0], aws.StringValue(tag.Value))
 					matched++
 				}
 			}
 		}
-		if matched == len(tags) {
+		// Match all search tags?
+		if matched == len(serachTags) {
 			filterd = append(filterd, asg)
 		}
 	}
