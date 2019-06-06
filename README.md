@@ -7,7 +7,7 @@ lsas
 [![Go Report Card](https://goreportcard.com/badge/github.com/budougumi0617/lsas)](https://goreportcard.com/report/github.com/budougumi0617/lsas)
 
 ## Description
-List view of aws autoscaling group.
+List view of AWS autoscaling group.
 
 ## Demo & VS.
 We use the AWS Console (web view) to display the information of the Auto Scaling Group (ASG). Also, we want to filter ASG search results using tags.
@@ -68,5 +68,5 @@ brew install budougumi0617/lsas/lsas
 
 ## Author
 
-[Yoichiro Shimizu](https://github.com/budougumi0617)
+[Yoichiro Shimizu(@budougumi0617)](https://github.com/budougumi0617)
 
